@@ -1,0 +1,48 @@
+
+<body>
+  <h1>What would you like to do?</h1>
+  <form>
+    <input id="increase" name="action" type="radio" value="increase" />
+    <label for="increase">Increase Stitches</label><br />
+    <input id="decrease" name="action" type="radio" value="decrease" />
+    <label for="decrease">Decrease Stitches</label><br />
+    <br />
+    <button onclick="calculate()" type="button">Calculate</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    function calculate() {
+      let action = document.querySelector('input[name="action"]:checked').value;
+      let currentStitches, stitchesToAdd, stitchesToDecrease;
+      let resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = ""; // Clear previous results
+
+      if (action === "increase") {
+        currentStitches = parseInt(prompt("Enter the number of stitches you currently have:"));
+        stitchesToAdd = parseInt(prompt("Enter the number of stitches to add:"));
+
+        // Basic calculation (ignores decimals)
+        let stitchesBetweenIncreases = Math.floor((currentStitches / stitchesToAdd) - 1);
+        let remainderStitches = currentStitches % stitchesToAdd;
+        let totalStitches = currentStitches + stitchesToAdd;
+
+        resultDiv.innerHTML = `<p class="result">(sc in ${stitchesBetweenIncreases}, inc) ${remainderStitches} sts remaining</p>
+                               <p>Total stitches after increase: ${totalStitches}</p>`; 
+      } else if (action === "decrease") {
+        currentStitches = parseInt(prompt("Enter the number of stitches you currently have:"));
+        stitchesToDecrease = parseInt(prompt("Enter the number of stitches to decrease:"));
+
+        // Basic calculation (ignores decimals)
+        let stitchesBetweenDecreases = Math.floor((currentStitches / stitchesToDecrease) - 2);
+        let remainderStitches = currentStitches % stitchesToDecrease;
+        let totalStitches = currentStitches - stitchesToDecrease;
+
+        resultDiv.innerHTML = `<p class="result">(sc in ${(stitchesBetweenDecreases)}, dec) ${remainderStitches} sts remaining</p>
+                               <p>Total stitches after decrease: ${totalStitches}</p>`;
+      } else {
+        resultDiv.innerHTML = "<p>Please select Increase or Decrease.</p>";
+      }
+    }
+  </script>
+</body>
+
